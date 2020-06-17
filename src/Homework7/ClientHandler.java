@@ -121,6 +121,7 @@ public class ClientHandler {
             }
             String authStr = in.readUTF();
             if (authStr.startsWith("/auth")) {
+                System.out.println(authStr);
                 String[] s = authStr.split(" ");
                 String nick = null;
                 if (s.length == 3) {
@@ -133,6 +134,7 @@ public class ClientHandler {
                 } else {
                     setNick(nick);
                     setAuth(true);
+                    out.writeUTF("/authok");
                     out.writeUTF("Welcome to the chat: " + getNick());
                     myServer.broadcast(myServer.getName(), getNick() + " joined us");
                     myServer.LogOn(this);

@@ -31,7 +31,7 @@ public class MyServer {
     public synchronized void broadcast(String nick, String msg) {
         for (ClientHandler ch : clients) {
             try {
-                if (ch.getAuth()) ch.sendMsg(nick + ":" + msg);
+                if (ch.getAuth() && (!ch.getNick().equals(nick))) ch.sendMsg(nick + ":" + msg);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -62,4 +62,5 @@ public class MyServer {
             }
         }
     }
+
 }
