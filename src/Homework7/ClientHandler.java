@@ -93,11 +93,21 @@ public class ClientHandler {
                 if ((s.length > 2) && (myServer.isLoggedIn(s[1]))) {
                     myServer.sendPrivateMsg(getNick(), s[1], s[2]);
                 }
+            } else if (msg.startsWith("/ch")) {
+                String[] s = msg.split(" ", 2);
+                if (s.length > 1) {
+                    if (myServer.getAuthService().changeNick(getNick(), s[1])) {
+                        String oldNick = getNick();
+                        setNick(s[1]);
+                        myServer.broadcast(myServer.getName(), oldNick + " changed nick to " + getNick());
+                    } else {
+                        sendMsg("Failed to change nick ");
+                    }
+                }
             } else {
                 myServer.broadcast(getNick(), msg);
             }
         }
-
     }
 
     public void sendMsg(String msg) throws IOException {

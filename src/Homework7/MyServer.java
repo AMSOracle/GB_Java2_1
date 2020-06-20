@@ -16,7 +16,7 @@ public class MyServer {
     }
     public MyServer() {
         try (ServerSocket serverSocket = new ServerSocket(PORT);) {
-            authService = new AuthService();
+            authService = new AuthServiceSQLite();
             clients = new ArrayList<>();
             System.out.println("Server started");
             while (true) {
